@@ -13,8 +13,9 @@ const SAP_PAY_URL = `${process.env.SAP_PO_URL}zsrv_emp54_payslip?sap-client=${pr
 
 router.post('/employee-pay', async (req, res) => {
   const { employeeId } = req.body;
+  console.log("emp: " + employeeId);
 
-  const soapEnvelope = `4444
+  const soapEnvelope = `
     <soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/"
                   xmlns:urn="urn:sap-com:document:sap:rfc:functions">
    <soapenv:Header/>
@@ -27,6 +28,7 @@ router.post('/employee-pay', async (req, res) => {
   `;
 
   try {
+    console.log("front");
     const response = await axios.post(SAP_PAY_URL, soapEnvelope, {
       headers: {
         'Content-Type': 'text/xml;charset=UTF-8',
@@ -38,6 +40,8 @@ router.post('/employee-pay', async (req, res) => {
       },
       httpsAgent: agent,
     });
+
+    console.log("works");
 
     const xml = response.data;
     console.log('Raw SOAP Response:\n', xml);

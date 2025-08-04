@@ -10,8 +10,8 @@ const agent = new https.Agent({ rejectUnauthorized: false });
 // SAP PAYPDF WSDL Endpoint
 const SAP_PAYPDF_URL = 'http://AZKTLDS5CP.kcloud.com:8000/sap/bc/srt/scs/sap/zsrv_emp54_paypdf?sap-client=100';
 
-router.post('/employee-paypdf', async (req, res) => {
-  const { employeeId } = req.body;
+router.post('/employee-paypdf/:employeeId', async (req, res) => {
+  const { employeeId } = req.params;
 
   const soapEnvelope = `
     <soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/"
